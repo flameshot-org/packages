@@ -1,0 +1,51 @@
+dist: xenial
+sudo: required
+
+branches:
+  only:
+    - master
+
+cache:
+    directories:
+      - $HOME/.cache
+ 
+env:
+    global:
+      # Environment variables for packaging
+      - PRODUCT=flameshot
+      - VERSION=0.6.0
+      - RELEASE=1
+      - ARCH=x86_64
+      - SNAP_DOCKER_REPO=snapcore/snapcraft
+
+matrix:
+    include:
+        - os: linux
+          env: OS=ubuntu DIST=xenial EXTEN=snap
+          services: docker
+          language: cpp
+        - os: linux
+          env: OS=ubuntu DIST=xenial EXTEN=appimage
+          language: cpp
+       
+before_install:
+  - export ROOT_PATH="$(pwd)"
+  - git clone https://github.com/lupoDharkael/flameshot
+  - export SRC_PATH="${ROOT_PATH}/flameshot"
+  - chmod +x ${ROOT_PATH}/scripts/*.sh
+  - if [[ "${EXTEN}" == "snap" ]]; then source ${ROOT_PATH}/scripts/snap_before_install.sh; fi
+  - if [[ "${EXTEN}" == "appimage" ]]; then source ${ROOT_PATH}/scripts/appimage_before_install.sh; fi
+
+install:
+  - if [[ "${EXTEN}" == "snap" ]]; then source ${ROOT_PATH}/scripts/snap_install.sh; fi
+  - if [[ "${EXTEN}" == "appimage" ]]; then source ${ROOT_PATH}/scripts/appimage_install.sh; fi
+
+script:
+  - if [[ "${EXTEN}" == "snap" ]]; then source ${ROOT_PATH}/scripts/snap_script.sh; fi
+  - if [[ "${EXTEN}" == "appimage" ]]; then source ${ROOT_PATH}/scripts/appimage_script.sh; fi
+  - pwd && ls
+
+after_success:
+  - if [[ "${EXTEN}" == "snap" ]]; then source ${ROOT_PATH}/scripts/snap_after_success.sh; fi
+  - if [[ "${EXTEN}" == "appimage" ]]; then source ${ROOT_PATH}/scripts/appimage_after_success.sh; fi
+  - echo "Download URL is $TEMP_DOWNLOAD_URL ."

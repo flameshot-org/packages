@@ -1,0 +1,92 @@
+name: flameshot
+version: git
+icon: img/app/flameshot.svg
+summary: Powerful yet simple to use screenshot software
+description: |
+  A powerful open source screenshot and annotation tool for Linux, Flameshot
+  has a varied set of markup tools available, which include Freehand drawing,
+  Lines, Arrows, Boxes, Circles, Highlighting, Blur. Additionally, you can
+  customise the color, size and/or thickness of many of these image annotation
+  tools.
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: strict # use 'strict' once you have the right plugs and slots
+architectures:
+  - build-on: amd64
+  - build-on: i386
+
+
+environment:
+  XDG_DATA_DIRS: $SNAP/share:$XDG_DATA_DIRS
+
+apps:
+  flameshot:
+    command: desktop-launch flameshot
+    environment:
+      LC_ALL: C.UTF-8
+      DISABLE_WAYLAND: 1
+    plugs:
+      - desktop
+      - desktop-legacy
+      - home
+      - network
+      - network-bind
+      - opengl
+      - pulseaudio
+      - unity7
+      - wayland
+      - x11
+# On a Wayland session, GTK instead uses the GSettings API to read the users preferences directly, bypassing the display server. So plugging the gsettings interface is also necessary.
+# Allowing GTK to detect the selected system theme - How to use the system GTK theme via the gtk-common-themes snap - doc - snapcraft.io
+# https://forum.snapcraft.io/t/how-to-use-the-system-gtk-theme-via-the-gtk-common-themes-snap/6235
+      - gsettings
+
+# Support for system themes:
+# https://forum.snapcraft.io/t/how-to-use-the-system-gtk-theme-via-the-gtk-common-themes-snap/6235
+plugs:
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
+
+
+parts:
+  flameshot:
+    after:
+      - desktop-qt5
+      - indicator-qt5
+    plugin: qmake
+    qt-version: qt5
+    options:
+      - CONFIG+=packaging
+    source: .
+    source-type: git
+    build-packages:
+      - qt5-default
+      - qttools5-dev-tools
+      - libqt5svg5-dev
+    stage-packages:
+      - dbus-x11
+      - libgtk2.0-0
+      - openssl
+      - ca-certificates
+
+  desktop-qt5:
+    stage: [ -./**/lib/*/qt5/**/libappmenu-qt5.so ]
+
+slots:
+  # Depending on in which environment we're running we either need
+  # to use the system or session DBus so we also need to have one
+  # slot for each.
+  flameshot-app:
+    interface: dbus
+    bus: session
+    name: org.dharkael.Flameshot
