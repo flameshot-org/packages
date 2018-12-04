@@ -1,0 +1,26 @@
+app-id: org.dharkael.Flameshot
+runtime: org.kde.Platform
+runtime-version: '5.11'
+sdk: org.kde.Sdk
+command: flameshot
+rename-icon: flameshot
+rename-desktop-file: flameshot.desktop
+finish-args:
+- --socket=wayland
+- --socket=fallback-x11
+- --socket=x11 # can be removed once most deployed flatpak installations support ignoring unknown permission types
+- --share=ipc
+- --share=network
+- --talk-name=org.kde.StatusNotifierWatcher
+- --talk-name=org.freedesktop.Notifications
+cleanup:
+- /app/include
+modules:
+- name: flameshot
+  buildsystem: qmake
+  sources:
+  - type: archive
+    url: https://github.com/lupoDharkael/flameshot/archive/v0.6.0.tar.gz
+    sha256: 61b3a1969d6e17d80d5d90a3fce53ca5ae78fa21f9a45e5a19b0b32ea815a589
+  post-install:
+  - sed -e 's|/usr/local|/app|' -i /app/share/dbus-1/services/org.dharkael.Flameshot.service

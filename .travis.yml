@@ -17,6 +17,10 @@ env:
       - RELEASE=1
       - ARCH=x86_64
       - SNAP_DOCKER_REPO=snapcore/snapcraft
+      - FLATPAK_DOCKER_REPO=fedora:29
+      # - FLATPAK_GNOME_DOCKER_REPO=vitzy/flatpak:flatpak-gnome
+      # - FLATPAK_KDE_DOCKER_REPO=vitzy/flatpak:flatpak-kde
+      # - FLATPAK_FREEDESKTOP_DOCKER_REPO=vitzy/flatpak:flatpak-freedesktop
 
 matrix:
     include:
@@ -27,6 +31,15 @@ matrix:
         - os: linux
           env: OS=ubuntu DIST=xenial EXTEN=appimage
           language: cpp
+        - os: linux
+          env: OS=fedora DIST=29 EXTEN=flatpak RUN_TIME=gnome
+          language: cpp
+        # - os: linux
+        #   env: OS=fedora DIST=29 EXTEN=flatpak RUN_TIME=kde
+        #   language: cpp
+        # - os: linux
+        #   env: OS=fedora DIST=29 EXTEN=flatpak RUN_TIME=freedesktop
+        #   language: cpp
        
 before_install:
   - export ROOT_PATH="$(pwd)"
@@ -35,14 +48,17 @@ before_install:
   - chmod +x ${ROOT_PATH}/scripts/*.sh
   - if [[ "${EXTEN}" == "snap" ]]; then source ${ROOT_PATH}/scripts/snap_before_install.sh; fi
   - if [[ "${EXTEN}" == "appimage" ]]; then source ${ROOT_PATH}/scripts/appimage_before_install.sh; fi
+  - if [[ "${EXTEN}" == "flatpak" ]]; then source ${ROOT_PATH}/scripts/flatpak_before_install.sh; fi
 
 install:
   - if [[ "${EXTEN}" == "snap" ]]; then source ${ROOT_PATH}/scripts/snap_install.sh; fi
   - if [[ "${EXTEN}" == "appimage" ]]; then source ${ROOT_PATH}/scripts/appimage_install.sh; fi
+  - if [[ "${EXTEN}" == "flatpak" ]]; then source ${ROOT_PATH}/scripts/flatpak_install.sh; fi
 
 script:
   - if [[ "${EXTEN}" == "snap" ]]; then source ${ROOT_PATH}/scripts/snap_script.sh; fi
   - if [[ "${EXTEN}" == "appimage" ]]; then source ${ROOT_PATH}/scripts/appimage_script.sh; fi
+  - if [[ "${EXTEN}" == "flatpak" ]]; then source ${ROOT_PATH}/scripts/flatpak_script.sh; fi
   - pwd && ls
 
 after_success:
