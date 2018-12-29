@@ -17,7 +17,7 @@ env:
       - RELEASE=1
       - ARCH=x86_64
       - SNAP_DOCKER_REPO=snapcore/snapcraft
-      - FLATPAK_DOCKER_REPO=vitzy/flameshot:fedora-28
+      - FLATPAK_DOCKER_REPO="vitzy/flameshot:fedora-28"
       # - FLATPAK_GNOME_DOCKER_REPO=vitzy/flatpak:flatpak-gnome
       # - FLATPAK_KDE_DOCKER_REPO=vitzy/flatpak:flatpak-kde
       # - FLATPAK_FREEDESKTOP_DOCKER_REPO=vitzy/flatpak:flatpak-freedesktop
