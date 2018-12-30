@@ -31,14 +31,14 @@ matrix:
         - os: linux
           env: OS=ubuntu DIST=xenial EXTEN=appimage
           language: cpp
+        # - os: linux
+        #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=gnome
+        #   language: cpp
         - os: linux
-          env: OS=fedora DIST=29 EXTEN=flatpak RUN_TIME=gnome
+          env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=kde
           language: cpp
         # - os: linux
-        #   env: OS=fedora DIST=29 EXTEN=flatpak RUN_TIME=kde
-        #   language: cpp
-        # - os: linux
-        #   env: OS=fedora DIST=29 EXTEN=flatpak RUN_TIME=freedesktop
+        #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=freedesktop
         #   language: cpp
        
 before_install:
