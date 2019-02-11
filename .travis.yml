@@ -16,7 +16,7 @@ env:
       - VERSION=0.6.0
       - RELEASE=1
       - ARCH=x86_64
-      - SNAP_DOCKER_REPO=snapcore/snapcraft
+      - SNAP_DOCKER_REPO="snapcore/snapcraft"
       - FLATPAK_DOCKER_REPO="vitzy/flameshot:fedora-28"
       # - FLATPAK_GNOME_DOCKER_REPO=vitzy/flatpak:flatpak-gnome
       # - FLATPAK_KDE_DOCKER_REPO=vitzy/flatpak:flatpak-kde
@@ -31,14 +31,17 @@ matrix:
         - os: linux
           env: OS=ubuntu DIST=xenial EXTEN=appimage
           language: cpp
-        # - os: linux
-        #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=gnome
-        #   language: cpp
         - os: linux
           env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=kde
+          services: docker
           language: cpp
         # - os: linux
+        #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=gnome
+        #   services: docker
+        #   language: cpp
+        # - os: linux
         #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=freedesktop
+        #   services: docker
         #   language: cpp
        
 before_install:

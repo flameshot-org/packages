@@ -14,8 +14,8 @@ if [[ "${RUN_TIME}" == "gnome" ]]; then
 	docker exec -i flatpak-builder sh -c "flatpak install -y flathub org.gnome.Platform//3.30"
 	docker exec -i flatpak-builder sh -c "flatpak install -y flathub org.gnome.Sdk//3.30"
 elif [[ "${RUN_TIME}" == "kde" ]]; then 
-	docker exec -i flatpak-builder sh -c "flatpak install -y flathub org.kde.Platform//5.9"
-	docker exec -i flatpak-builder sh -c "flatpak install -y flathub org.kde.Sdk//5.9"
+	docker exec -i flatpak-builder sh -c "flatpak install -y flathub org.kde.Platform//5.12"
+	docker exec -i flatpak-builder sh -c "flatpak install -y flathub org.kde.Sdk//5.12"
 elif [[ "${RUN_TIME}" == "freedesktop" ]]; then 
 	docker exec -i flatpak-builder sh -c "flatpak install -y flathub org.freedesktop.Platform//1.6"
 	docker exec -i flatpak-builder sh -c "flatpak install -y flathub org.freedesktop.Sdk//1.6"

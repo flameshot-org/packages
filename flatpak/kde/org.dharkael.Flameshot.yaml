@@ -1,6 +1,6 @@
 app-id: org.dharkael.Flameshot
 runtime: org.kde.Platform
-runtime-version: '5.9'
+runtime-version: '5.12'
 sdk: org.kde.Sdk
 command: flameshot
 rename-icon: flameshot
@@ -34,6 +34,6 @@ modules:
     - type: git
       url: https://github.com/lupoDharkael/flameshot.git
       branch: master
-  post-install:
-    - sed -e 's|/usr|/app|' -i /app/share/dbus-1/services/org.dharkael.Flameshot.service"
-    - sed -i 's|flameshot.desktop|org.dharkael.Flameshot.desktop|g' /app/share/appdata/flameshot.appdata.xml
+  # post-install:
+  #   - sed -e 's|/usr|/app|' -i /app/share/dbus-1/services/org.dharkael.Flameshot.service"
+  #   - sed -i 's|flameshot.desktop|org.dharkael.Flameshot.desktop|g' /app/share/appdata/flameshot.appdata.xml
