@@ -19,3 +19,8 @@
     </a> -->
   </p>
 </div>
+
+- `AppImage`: Get it from [Release](https://github.com/flameshotapp/packages/releases) page
+- `Snap`: [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/flameshot-app)
+- `Flatpak`: waiting...
+
