@@ -25,11 +25,11 @@ env:
 matrix:
     include:
         - os: linux
-          env: OS=ubuntu DIST=xenial EXTEN=snap
-          services: docker
+          env: OS=ubuntu DIST=xenial EXTEN=appimage
           language: cpp
         - os: linux
-          env: OS=ubuntu DIST=xenial EXTEN=appimage
+          env: OS=ubuntu DIST=xenial EXTEN=snap
+          services: docker
           language: cpp
         - os: linux
           env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=kde
