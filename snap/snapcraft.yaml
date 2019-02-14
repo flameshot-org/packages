@@ -9,7 +9,7 @@ description: |
   customise the color, size and/or thickness of many of these image annotation
   tools.
 
-grade: devel # must be 'stable' to release into candidate/stable channels
+grade: stable # must be 'stable' to release into candidate/stable channels, devel
 confinement: strict # use 'strict' once you have the right plugs and slots
 architectures:
   - build-on: amd64
