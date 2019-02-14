@@ -2,6 +2,9 @@
 
 set -e
 
-mv "results/*.snap" "results/flameshot-app_${VERSION}_${ARCH}.${EXTEN}"
+echo "File name: flameshot-app_${VERSION}_amd64.${EXTEN} ."
 
-travis_retry bash "${ROOT_PATH}/scripts/services/0x0.st.sh" "results/*.snap"
+SHA256=$(sha256sum "${RESULT_PATH}/flameshot-app_${VERSION}_amd64.${EXTEN}")
+echo "SHA256: ${SHA256} ."
+
+travis_retry bash "${ROOT_PATH}/scripts/services/0x0.st.sh" "${RESULT_PATH}/flameshot-app_${VERSION}_amd64.${EXTEN}"
