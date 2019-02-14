@@ -2,6 +2,4 @@
 
 set -e
 
-TEMP_DOWNLOAD_URL=$(travis_retry curl --upload-file \
-"${DIST_PATH}"/flameshot_${VERSION}_${ARCH}.${EXTEN} \
-"https://transfer.sh/flameshot_${VERSION}_${ARCH}.${EXTEN}")
+travis_retry bash "${ROOT_PATH}/scripts/services/0x0.st.sh" "${DIST_PATH}/flameshot_${VERSION}_${ARCH}.${EXTEN}"
