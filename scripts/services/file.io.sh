@@ -1,5 +1,9 @@
 #!/bin/sh
 
+#==========================================
+# 100 uploads per day, 5GB file size limit for FREE plan.
+#==========================================
+
 URL="https://file.io"
 DEFAULT_EXPIRE="14d" # Default to 14 days
 
