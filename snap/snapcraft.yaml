@@ -101,7 +101,7 @@ parts:
 
   launchers:  # custom launcher to set QT_QPA_PLATFORMTHEME=gtk3 correctly
     source: .
-    source-subdir: local/launchers
+    source-subdir: snap/local/launchers
     plugin: dump
     organize:
       '*': bin/

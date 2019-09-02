@@ -2,6 +2,8 @@
 
 set -e
 
+git clone https://github.com/lupoDharkael/flameshot
+
 cp -rf "${ROOT_PATH}"/flatpak "${SRC_PATH}"
 # --privileged gives too many permissions to the container.
 # FUSE functionality needs in fact only the following permissions:

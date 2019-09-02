@@ -1,5 +1,6 @@
 ---
 
+language: bash
 dist: xenial
 sudo: required
 
@@ -18,8 +19,12 @@ env:
     - VERSION=0.6.0
     - RELEASE=1
     - ARCH=x86_64
-    - SNAP_DOCKER_REPO="snapcore/snapcraft"
     - FLATPAK_DOCKER_REPO="vitzy/flameshot:fedora-28"
+    - LC_ALL: C.UTF-8
+    - LANG: C.UTF-8
+    - SNAPCRAFT_ENABLE_SILENT_REPORT: y
+    - SNAPCRAFT_ENABLE_DEVELOPER_DEBUG: y
+
 
 matrix:
   include:
@@ -28,8 +33,16 @@ matrix:
       language: cpp
     - os: linux
       env: OS=ubuntu DIST=xenial EXTEN=snap
-      services: docker
       language: cpp
+      addons:
+        snaps:
+          - name: snapcraft
+            channel: stable
+            classic: true
+          - name: http
+          - name: transfer
+          - name: lxd
+            channel: stable
     - os: linux
       env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=kde
       services: docker
@@ -41,14 +54,14 @@ matrix:
       # - os: linux
       #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=freedesktop
       #   services: docker
+
 before_install:
   - export ROOT_PATH="$(pwd)"
-  - git clone https://github.com/lupoDharkael/flameshot
   - export SRC_PATH="${ROOT_PATH}/flameshot"
   - chmod +x ${ROOT_PATH}/scripts/*.sh
   - chmod +x ${ROOT_PATH}/scripts/services/*.sh
   - |
-    case "${EXTEN}" in
+    case "$EXTEN" in
       "appimage")
         source ${ROOT_PATH}/scripts/appimage_before_install.sh
         ;;
