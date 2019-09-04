@@ -1,3 +1,6 @@
+---
+
+language: bash
 dist: xenial
 sudo: required
 
@@ -6,62 +9,106 @@ branches:
     - master
 
 cache:
-    directories:
-      - $HOME/.cache
- 
+  directories:
+    - $HOME/.cache
+
 env:
-    global:
-      # Environment variables for packaging
-      - PRODUCT=flameshot
-      - VERSION=0.6.0
-      - RELEASE=1
-      - ARCH=x86_64
-      - SNAP_DOCKER_REPO="snapcore/snapcraft"
-      - FLATPAK_DOCKER_REPO="vitzy/flameshot:fedora-28"
+  global:
+    # Environment variables for packaging
+    - PRODUCT=flameshot
+    - VERSION=0.6.0
+    - RELEASE=1
+    - ARCH=x86_64
+    - FLATPAK_DOCKER_REPO="vitzy/flameshot:fedora-28"
+    - LC_ALL: C.UTF-8
+    - LANG: C.UTF-8
+    - SNAPCRAFT_ENABLE_SILENT_REPORT: y
+    - SNAPCRAFT_ENABLE_DEVELOPER_DEBUG: y
+
 
 matrix:
-    include:
-        - os: linux
-          env: OS=ubuntu DIST=xenial EXTEN=appimage
-          language: cpp
-        - os: linux
-          env: OS=ubuntu DIST=xenial EXTEN=snap
-          services: docker
-          language: cpp
-        - os: linux
-          env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=kde
-          services: docker
-          language: cpp
-        # - os: linux
-        #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=gnome
-        #   services: docker
-        #   language: cpp
-        # - os: linux
-        #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=freedesktop
-        #   services: docker
-        #   language: cpp
-       
+  include:
+    - os: linux
+      env: OS=ubuntu DIST=xenial EXTEN=appimage
+      language: cpp
+    - os: linux
+      env: OS=ubuntu DIST=xenial EXTEN=snap
+      language: cpp
+      addons:
+        snaps:
+          - name: snapcraft
+            channel: stable
+            classic: true
+          - name: http
+          - name: transfer
+          - name: lxd
+            channel: stable
+    - os: linux
+      env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=kde
+      services: docker
+      language: cpp
+      # - os: linux
+      #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=gnome
+      #   services: docker
+      #   language: cpp
+      # - os: linux
+      #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=freedesktop
+      #   services: docker
+
 before_install:
   - export ROOT_PATH="$(pwd)"
-  - git clone https://github.com/lupoDharkael/flameshot
   - export SRC_PATH="${ROOT_PATH}/flameshot"
   - chmod +x ${ROOT_PATH}/scripts/*.sh
   - chmod +x ${ROOT_PATH}/scripts/services/*.sh
-  - if [[ "${EXTEN}" == "appimage" ]]; then source ${ROOT_PATH}/scripts/appimage_before_install.sh; fi
-  - if [[ "${EXTEN}" == "snap" ]]; then source ${ROOT_PATH}/scripts/snap_before_install.sh; fi
-  - if [[ "${EXTEN}" == "flatpak" ]]; then source ${ROOT_PATH}/scripts/flatpak_before_install.sh; fi
+  - |
+    case "$EXTEN" in
+      "appimage")
+        source ${ROOT_PATH}/scripts/appimage_before_install.sh
+        ;;
+      "snap")
+        source ${ROOT_PATH}/scripts/snap_before_install.sh
+        ;;
+      "flatpak")
+        source ${ROOT_PATH}/scripts/flatpak_before_install.sh
+        ;;
+    esac
 
 install:
-  - if [[ "${EXTEN}" == "appimage" ]]; then source ${ROOT_PATH}/scripts/appimage_install.sh; fi
-  - if [[ "${EXTEN}" == "snap" ]]; then source ${ROOT_PATH}/scripts/snap_install.sh; fi
-  - if [[ "${EXTEN}" == "flatpak" ]]; then source ${ROOT_PATH}/scripts/flatpak_install.sh; fi
+  - |
+    case "${EXTEN}" in
+      "appimage")
+        source ${ROOT_PATH}/scripts/appimage_install.sh
+        ;;
+      "snap")
+        source ${ROOT_PATH}/scripts/snap_install.sh
+        ;;
+      "flatpak")
+        source ${ROOT_PATH}/scripts/flatpak_install.sh
+        ;;
+    esac
 
 script:
-  - if [[ "${EXTEN}" == "appimage" ]]; then source ${ROOT_PATH}/scripts/appimage_script.sh; fi
-  - if [[ "${EXTEN}" == "snap" ]]; then source ${ROOT_PATH}/scripts/snap_script.sh; fi
-  - if [[ "${EXTEN}" == "flatpak" ]]; then source ${ROOT_PATH}/scripts/flatpak_script.sh; fi
+  - |
+    case "${EXTEN}" in
+      "appimage")
+        source ${ROOT_PATH}/scripts/appimage_script.sh
+        ;;
+      "snap")
+        source ${ROOT_PATH}/scripts/snap_script.sh
+        ;;
+      "flatpak")
+        source ${ROOT_PATH}/scripts/flatpak_script.sh
+        ;;
+    esac
   - pwd && ls
 
 after_success:
-  - if [[ "${EXTEN}" == "appimage" ]]; then source ${ROOT_PATH}/scripts/appimage_after_success.sh; fi
-  - if [[ "${EXTEN}" == "snap" ]]; then source ${ROOT_PATH}/scripts/snap_after_success.sh; fi
+  - |
+    case "${EXTEN}" in
+      "appimage")
+        source ${ROOT_PATH}/scripts/appimage_after_success.sh
+        ;;
+      "snap")
+        source ${ROOT_PATH}/scripts/snap_after_success.sh
+        ;;
+    esac
