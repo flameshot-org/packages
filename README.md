@@ -21,6 +21,15 @@
 </div>
 
 - `AppImage`: Get it from [Release](https://github.com/flameshotapp/packages/releases) page
-- `Snap`: [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/flameshot-app)
-- `Flatpak`: waiting...
+- `Snap`: 
+  1. Install Snap from file
+   `snap install --dangerous flameshot-app_v0.6.0_amd64.snap`
+
+  2. Install multiple versions of Snaps from file
+      `snap install --dangerous --name flameshot_beta flameshot-app_v0.6.0_amd64.snap`
+  3. See all Snaps installed:
+      `snap list`
+  4. Run Snaps:
+      `snap run flameshot`
+- ~~`Flatpak`: waiting...~~
 
