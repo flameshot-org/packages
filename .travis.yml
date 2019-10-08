@@ -19,7 +19,7 @@ env:
     - VERSION=0.6.0
     - RELEASE=1
     - ARCH=x86_64
-    - FLATPAK_DOCKER_REPO="vitzy/flameshot:fedora-28"
+    - FLATPAK_DOCKER_REPO="vitzy/flameshot:fedora-30"
     - LC_ALL: C.UTF-8
     - LANG: C.UTF-8
     - SNAPCRAFT_ENABLE_SILENT_REPORT: y
@@ -103,5 +103,8 @@ after_success:
         ;;
       "snap")
         source ${ROOT_PATH}/scripts/snap_after_success.sh
+        ;;
+      "flatpak")
+        source ${ROOT_PATH}/scripts/flatpak_after_success.sh
         ;;
     esac
