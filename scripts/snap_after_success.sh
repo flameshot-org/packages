@@ -13,6 +13,7 @@ fi
 SHA256=$(sha256sum "$RESULT_SNAP")
 echo "SHA256: ${SHA256} ."
 
+# https://transfer.sh
 timeout 240 /snap/bin/transfer "$RESULT_SNAP"
 
 # https://0x0.st

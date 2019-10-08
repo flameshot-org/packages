@@ -44,16 +44,9 @@ matrix:
           - name: lxd
             channel: stable
     - os: linux
-      env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=kde
+      env: OS=fedora DIST=30 EXTEN=flatpak RUN_TIME=kde
       services: docker
       language: cpp
-      # - os: linux
-      #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=gnome
-      #   services: docker
-      #   language: cpp
-      # - os: linux
-      #   env: OS=fedora DIST=28 EXTEN=flatpak RUN_TIME=freedesktop
-      #   services: docker
 
 before_install:
   - export ROOT_PATH="$(pwd)"
