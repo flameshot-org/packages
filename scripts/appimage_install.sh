@@ -4,9 +4,9 @@ set -e
 
 sudo apt update
 # Compile-time
-sudo apt install -y gcc g++ build-essential qt5-default qt5-qmake qttools5-dev-tools
+sudo apt install -y gcc g++ build-essential qt5-default qt5-qmake qttools5-dev-tools libqt5svg5-dev
 # Run-time
-sudo apt install -y libqt5dbus5 libqt5network5 libqt5core5a libqt5widgets5 libqt5gui5 libqt5svg5-dev
+sudo apt install -y libqt5dbus5 libqt5network5 libqt5core5a libqt5widgets5 libqt5gui5 libqt5svg5 
 # Optional
 sudo apt install -y openssl ca-certificates
 # Install fcitx-frontend-qt5
