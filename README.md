@@ -14,6 +14,9 @@
     <a href="https://travis-ci.org/flameshotapp/packages">
       <img src="https://img.shields.io/travis/flameshotapp/packages.svg?style=flat-square&label=appimage/snap/flatpak" alt="AppImage/Snap/Flatpak Build Status" />
     </a>
+    <a href="https://github.com/flameshotapp/packages/releases">
+      <img src="https://img.shields.io/github/downloads/flameshotapp/packages/total.svg?style=flat-square" alt="Total Downloads" />
+    </a>
 <!--     <a href="https://build.snapcraft.io/user/flameshotapp/packages">
       <img src="https://build.snapcraft.io/badge/flameshotapp/packages.svg" alt="Snapcraft Status" />
     </a> -->
