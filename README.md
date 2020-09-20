@@ -23,7 +23,26 @@
   </p>
 </div>
 
-- `AppImage`: Get it from [Release](https://github.com/flameshotapp/packages/releases) page
+- `AppImage`: Get it from [Release](https://github.com/flameshotapp/packages/releases) page, or:
+  1. Download the latest AppImage (remember to move the file to where ever you want to store it):
+   ```sh
+   curl -O -J -L $(curl -s https://api.github.com/repos/flameshot-org/flameshot/releases/latest \
+                | grep -Po 'https://github.com/flameshot-org/flameshot/releases/download/[^}]*\.AppImage' \
+                | uniq)
+   ```
+  
+  2. Delete older versions of Flameshot AppImage
+  
+  3. Set it to executable:
+  ```sh
+  chmod +x Flameshot-*-x86_64.AppImage
+  ```
+  
+  4. Run the software:
+   ```sh
+   ./Flameshot-*-x86_64.AppImage
+   ```
+  
 - `Snap`: 
   1. Install Snap from file
    `snap install --dangerous flameshot-app_v0.6.0_amd64.snap`
